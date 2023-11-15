@@ -1,3 +1,13 @@
 {
-  "cSpell.words": ["matcap", "matcaps", "Metalness", "Parens", "wireframe"]
+  "cSpell.words": [
+    "matcap",
+    "matcaps",
+    "Metalness",
+    "mipmaps",
+    "Parens",
+    "Phong",
+    "RGBE",
+    "Toon",
+    "wireframe"
+  ]
 }

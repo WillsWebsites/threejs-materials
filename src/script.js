@@ -1,5 +1,10 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import GUI from 'lil-gui'
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
+
+// GUI
+const gui = new GUI()
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -18,7 +23,7 @@ const doorMetalnessTexture = textureLoader.load('/textures/door/metalness.jpg')
 const doorNormalTexture = textureLoader.load('/textures/door/normal.jpg')
 const doorRoughnessTexture = textureLoader.load('/textures/door/roughness.jpg')
 const matcapTexture = textureLoader.load('/textures/matcaps/8.png')
-const gradientTexture = textureLoader.load('/textures/gradients/3.jpg')
+const gradientTexture = textureLoader.load('/textures/gradients/5.jpg')
 
 doorColorTexture.colorSpace = THREE.SRGBColorSpace
 matcapTexture.colorSpace = THREE.SRGBColorSpace
@@ -40,9 +45,44 @@ matcapTexture.colorSpace = THREE.SRGBColorSpace
 // material.flatShading = true
 
 // Mesh Matcap Material
-const material = new THREE.MeshMatcapMaterial()
-material.matcap = matcapTexture
-material.side = THREE.DoubleSide
+// const material = new THREE.MeshMatcapMaterial()
+// material.matcap = matcapTexture
+// material.side = THREE.DoubleSide
+
+// Mesh Depth Material
+// const material = new THREE.MeshDepthMaterial()
+
+// Mesh Lambert Material
+// const material = new THREE.MeshLambertMaterial()
+
+// Mesh Phong Material
+// const material = new THREE.MeshPhongMaterial()
+// material.shininess = 10
+// material.specular = new THREE.Color(0x1188ff)
+
+// Mesh Toon Material
+// const material = new THREE.MeshToonMaterial()
+// gradientTexture.minFilter = THREE.NearestFilter
+// gradientTexture.magFilter = THREE.NearestFilter
+// gradientTexture.generateMipmaps = false
+// material.gradientMap = gradientTexture
+
+// Mesh Standard Material
+const material = new THREE.MeshStandardMaterial()
+material.metalness = 0.7
+material.roughness = 0.2
+
+gui.add(material, 'metalness').min(0).max(1).step(0.0001)
+gui.add(material, 'roughness').min(0).max(1).step(0.0001)
+
+// Lights
+const ambientLight = new THREE.AmbientLight('white', 1)
+scene.add(ambientLight)
+const pointLight = new THREE.PointLight('white', 30)
+pointLight.position.x = 2
+pointLight.position.y = 3
+pointLight.position.z = 4
+scene.add(pointLight)
 
 const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 16), material)
 const plane = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), material)
